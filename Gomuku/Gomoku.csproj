@@ -116,8 +116,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ic_chat.png" />
-    <Resource Include="Resources\ic_clock.png" />
+    <Resource Include="View\Resources\ic_chat.png" />
+    <Resource Include="View\Resources\ic_clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Icon.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

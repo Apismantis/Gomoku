@@ -103,6 +103,7 @@ namespace Gomuku.Model
                         node = EBoard.GetMaxNode();
                     }
             }
+            Console.WriteLine("New pos: " + node.Row + " " + node.Column);
 
             return node;
         }

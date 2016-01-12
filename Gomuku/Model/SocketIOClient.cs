@@ -20,7 +20,7 @@ namespace Gomuku.Model
         int MAX_SQUARE;
         public bool AutoMode;
         AutoMovesBoard AMB;
-        bool IsStart;
+        bool IsStart, IsConnected, IsNotiError;
 
         #endregion
 
@@ -49,11 +49,15 @@ namespace Gomuku.Model
 
             IsStart = false;
 
+            IsConnected = true;
+
+            IsNotiError = false;
+
             AMB = new AutoMovesBoard();
 
             player = new Player("Guest");
 
-            socket = IO.Socket("ws://127.0.0.1:8000");
+            socket = IO.Socket(Gomuku.Properties.Settings.Default.IPServerString);
 
             HighlitghtCell = new List<Node>();
 
@@ -71,7 +75,13 @@ namespace Gomuku.Model
             
             socket.On(Socket.EVENT_CONNECT_ERROR, (data) =>
             {
-                ShowMessageEvent(new Message("Server", "LỖI: Không thể kết nối đến Server"));
+                if (!IsNotiError)
+                {
+                    ShowMessageEvent(new Message("Server", "LỖI: Không thể kết nối đến Server"));
+                    IsNotiError = true;
+                }
+
+                IsConnected = false;                
             });
 
             socket.On(Socket.EVENT_ERROR, (data) =>
@@ -187,12 +197,9 @@ namespace Gomuku.Model
             #endregion
         }
 
-        public void Connect()
-        {
-            //socket = IO.Socket("ws://127.0.0.1:8000");
-            //socket.Connect();
-            //socket.Close();
-            //socket.Open();
+        public bool IsConnectingServer()
+        {            
+            return IsConnected;
         }
 
         public void StartGame()
@@ -207,7 +214,7 @@ namespace Gomuku.Model
         public void NewGame()
         {
             ResetBoardCell();
-            Connect();
+            IsConnectingServer();
         }
 
         public void ResetBoardCell()

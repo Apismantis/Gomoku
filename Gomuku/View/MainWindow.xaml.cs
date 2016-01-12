@@ -47,7 +47,7 @@ namespace Gomoku.View
 
             rdbPlayerVsPlayer.IsChecked = true;
 
-            myMessage.Add(new Message("Server", "Hello! Welcome to Gomoku! Please wait another player."));
+            myMessage.Add(new Message("Server", "Hello! Welcome to Gomoku!"));
 
             ChatBox.ItemsSource = myMessage;
 
@@ -83,8 +83,8 @@ namespace Gomoku.View
                     Button btn = new Button()
                     {
                         Name = btnName,
-                        Height = 33,
-                        Width = 33,
+                        Height = 37,
+                        Width = 37,
                         Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FAFAFA")),
                         BorderThickness = new Thickness(0),
                         FontSize = 18,
@@ -97,9 +97,27 @@ namespace Gomoku.View
                     }
 
                     btn.Click += btnCell_Click;
+                    btn.MouseEnter += btnCell_MouseEnter;
                     wpCaroGrid.Children.Add(btn);
 
                     LButton[i, j] = btn;
+                }
+            }
+        }
+
+        private void btnCell_MouseEnter(object sender, MouseEventArgs e)
+        {
+            string btnName = ((Button)sender).Name;
+
+            for (int i = 0; i < MAX_SQUARE; i++)
+            {
+                for (int j = 0; j < MAX_SQUARE; j++)
+                {
+                    if (LButton[i, j].Name.Equals(btnName))
+                    {
+                        lbCurrentCell.Content = "(" + (i + 1) + ", " + (j + 1) + ")";
+                        return;
+                    }
                 }
             }
         }
@@ -114,12 +132,14 @@ namespace Gomoku.View
             {
                 LButton[row, col].Content = "O";
                 LButton[row, col].Foreground = Brushes.Green;
+                lbCurrentPlayer.Content = "X";
             }
 
             else if (CurrentPlayer == CellValues.Player2 || CurrentPlayer == CellValues.Machine)
             {
                 LButton[row, col].Content = "X";
                 LButton[row, col].Foreground = Brushes.Red;
+                lbCurrentPlayer.Content = "O";
             }
         }
 
@@ -186,7 +206,7 @@ namespace Gomoku.View
             rdbPlayerVsMachine.IsEnabled = status;
             rdbPlayerVsPlayer.IsEnabled = status;
             rdbPlayOnline.IsEnabled = status;
-            rdbAutoPlayOnline.IsChecked = false;
+            rdbAutoPlayOnline.IsEnabled = status;
         }
 
         private void btnCell_Click(object sender, RoutedEventArgs e)
@@ -212,7 +232,16 @@ namespace Gomoku.View
         {
             if (tbMessage.Text.CompareTo("") != 0)
             {
-                BoardChess.Socket.SendMessage(tbMessage.Text);
+                if (!BoardChess.Socket.IsConnectingServer())
+                {
+                    myMessage.Add(new Message(tbPlayerName.Text, tbMessage.Text));
+                }
+                else
+                {
+                    BoardChess.Socket.SendMessage(tbMessage.Text);
+                }
+                //BoardChess.Socket.SendMessage(tbMessage.Text);
+                tbMessage.Text = "Type your message here...";
             }
         }
 
@@ -277,7 +306,8 @@ namespace Gomoku.View
                         LButton[i, j].Background = Brushes.White;
                 }
 
-            BoardChess.Socket.NewGame();
+            // Ket noi lai toi server
+            //BoardChess.Socket.NewGame();
         }
 
         private void btnChange_Click(object sender, RoutedEventArgs e)
@@ -288,6 +318,11 @@ namespace Gomoku.View
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
             BoardChess.Socket.StartGame();
+        }
+
+        private void tbMessage_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            tbMessage.Text = "";
         }
         
     }

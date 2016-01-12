@@ -31,5 +31,14 @@ namespace Gomuku.Properties {
                 return ((int)(this["MAX_SQUARE"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ws://127.0.0.1:8000")]
+        public string IPServerString {
+            get {
+                return ((string)(this["IPServerString"]));
+            }
+        }
     }
 }
