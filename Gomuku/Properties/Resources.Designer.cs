@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gomoku___Five_in_arrow___multiplayer.Properties
+namespace Gomuku.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace Gomoku___Five_in_arrow___multiplayer.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Gomoku___Five_in_arrow___multiplayer.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Gomuku.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

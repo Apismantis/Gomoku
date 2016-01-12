@@ -1,7 +1,7 @@
-﻿<Window x:Name="start" x:Class="Gomoku___Five_in_arrow___multiplayer.MainWindow"
+﻿<Window x:Name="start" x:Class="Gomoku.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Gomoku___Five_in_arrow___multiplayer"
+        xmlns:local="clr-namespace:Gomoku.Model"
         Title="[1312666] Gomoku" Height="693.039" Width="894.893" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:Message x:Key="MessageData"/>
@@ -153,6 +153,8 @@
                 </Grid>
             </Viewbox>
         </Grid>
+        <RadioButton x:Name="rdbPlayerVsPlayer" Content="Player vs Player" HorizontalAlignment="Left" Margin="41,157,0,0" VerticalAlignment="Top" Checked="rdbPlayerVsPlayer_Checked"/>
+        <RadioButton x:Name="rdbPlayerVsMachine" Content="Player vs Machine" HorizontalAlignment="Left" Margin="173,157,0,0" VerticalAlignment="Top" Checked="rdbPlayerVsMachine_Checked"/>
 
     </Grid>
 </Window>

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gomoku___Five_in_arrow___multiplayer
+namespace Gomoku.Model
 {
-    public class Message
+    class Message
     {
         public string UserName { get; set; }
         public string Time { get; set; }

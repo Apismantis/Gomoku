@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Gomoku___Five_in_arrow___multiplayer
+namespace Gomuku
 {
     /// <summary>
     /// Interaction logic for App.xaml
