@@ -4,61 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Gomoku.Model;
+using Gomuku.Model;
 
 namespace Gomoku.ViewModel
 {
     public class CurrentBoard
     {
-        private Board BoardChess;
-        private PCBoard PCBoardChess;
-        
+
+        public Board BoardChessOffline;
+
+        public SocketIOClient Socket;
+
         public CurrentBoard()
         {
-            BoardChess = new Board();
-            PCBoardChess = new PCBoard();
-            BoardChess.PlayerWin += PlayerWinEvent;
-            PCBoardChess.PlayerWin += PlayerWinEvent;
-            BoardChess.PlayerDicken += DickenGameEvent;
+            BoardChessOffline = new Board();
+            Socket = new SocketIOClient();
         }
 
-        public Board GetBoardChess()
+        public void ResetBoardChess()
         {
-            return BoardChess;
-        }
-
-        public PCBoard GetPCBoardChess()
-        {
-            return PCBoardChess;
-        }
-
-        public delegate void EndGameHandle();
-
-        public event EndGameHandle EndGame;
-
-        public void PlayerWinEvent()
-        {
-            // Phat di su kien ket thuc game
-            EndGame();
-        }
-
-        public delegate void DickenGameHandle();
-
-        public event DickenGameHandle DickenGame;
-
-        public void DickenGameEvent()
-        {
-            // Phat di su kien hoa game
-            DickenGame();
+            BoardChessOffline.ResetBoard();
         }
 
         public void PlayAt(int row, int col, int mode)
         {
             if (mode == 1)
-                BoardChess.PlayAt(row, col);
-            else
             {
-                PCBoardChess.PlayAt(row, col);
+                BoardChessOffline.PlayerPlayAt(row, col);
+            }
+            else if (mode == 2)
+            {
+                BoardChessOffline.PCVsPlayerPlayAt(row, col);
+            }
+            else if (mode == 3)
+            {
+                Socket.PlayAt(row, col);
             }
         }
+
     }
 }

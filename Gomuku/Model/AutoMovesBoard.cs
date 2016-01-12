@@ -3,148 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Gomoku.Model;
 
-namespace Gomoku.Model
+namespace Gomuku.Model
 {
-    public class PCBoard
+    public class AutoMovesBoard
     {
-        private CellValues CurrentPlayer;
-        private CellValues NextPlayer;
-        private CellValues[,] BoardCell;
+        #region Biến
+
+        public CellValues CurrentPlayer;
         EValueBoard EBoard = new EValueBoard();
         int MAX_SQUARE;
-        public int[] TScore = new int[5] { 0, 1, 9, 85, 769 };
-        public int[] KScore = new int[5] { 0, 2, 28, 256, 2308 };
 
-        public delegate void PlayerWinHandle();
-        public event PlayerWinHandle PlayerWin;
-        public delegate void PlayerDickenHandle();
-        public event PlayerDickenHandle PlayerDicken; 
-        public delegate void PaintCellHandle(int row, int col);
-        public event PaintCellHandle PaintCellEvent;        
+        #endregion
 
-        public PCBoard()
+        #region Hàm chung
+
+        public AutoMovesBoard()
         {
             CurrentPlayer = CellValues.Player1;
 
-            NextPlayer = CellValues.Player1;
-
-            MAX_SQUARE = Gomuku.Properties.Settings.Default.MAX_SQUARE;
-
             EBoard = new EValueBoard();
 
-            BoardCell = new CellValues[MAX_SQUARE + 2, MAX_SQUARE + 2];
-
-            for (int i = 0; i < MAX_SQUARE + 2; i++)
-                for (int j = 0; j < MAX_SQUARE + 2; j++)
-                {
-                    if (i == 0 || j == 0 || i == MAX_SQUARE + 1 || j == MAX_SQUARE + 1)
-                        BoardCell[i, j] = CellValues.Outside;
-                    else
-                        BoardCell[i, j] = CellValues.None;
-                }
+            MAX_SQUARE = Gomuku.Properties.Settings.Default.MAX_SQUARE;
         }
 
-        public CellValues GetCurrentPlayer()
-        {
-            return CurrentPlayer;
-        }
-
-        public void PlayAt(int row, int col)
-        {
-            Random rand = new Random();
-            int count = rand.Next(4); // Lấy 1 số từ 0 -> 4
-            Node node = new Node();
-            row++;
-            col++;
-
-            if (!IsInBoard(row, col))
-                return;
-
-            if (BoardCell[row, col] == CellValues.None)
-            {
-                if (NextPlayer == CellValues.Player1)
-                {
-                    BoardCell[row, col] = NextPlayer;
-                    CurrentPlayer = NextPlayer;
-                    NextPlayer = CellValues.Machine;
-
-                    // Phát sự kiện tô màu
-                    PaintCellEvent(row - 1, col - 1);
-
-                    // Kiểm tra hòa
-                    if(CheckDicken(row, col))
-                    {
-                        PlayerDicken();
-                        return;
-                    }
-
-                    // Kiểm tra thắng
-                    if (CheckWin(row, col, 1, 0) || CheckWin(row, col, 0, 1) || CheckWin(row, col, 1, 1) || CheckWin(row, col, -1, 1))
-                    {
-                        // Phat su kien co nguoi choi thang
-                        PlayerWin();
-                        return;
-                    }
-
-                    // Tìm nước chiến thắng
-                    EBoard.ResetBoard();
-
-                    GetGenResult(); // Tìm nước đi
-
-                    if (CanWin)
-                    {
-                        node = PlayerMoves[1];
-                    }
-
-                    else
-                    {
-                        EBoard.ResetBoard();
-                        EvalueGomokuBoard(CellValues.Machine);
-                        node = EBoard.GetMaxNode();
-                        if (!CanLose)
-                            for (int i = 0; i < count; i++)
-                            {
-                                EBoard.Board[node.Row, node.Column] = 0;
-                                node = EBoard.GetMaxNode();
-                            }
-                    }
-
-                    // Máy đánh cờ ở ô tìm được
-                    row = node.Row;
-                    col = node.Column;
-                    BoardCell[row, col] = NextPlayer;
-                    Console.WriteLine(row + " " + col);
-                    CurrentPlayer = NextPlayer;
-                    NextPlayer = CellValues.Player1;
-
-                    PaintCellEvent(row - 1, col - 1);
-
-                    // Kiểm tra hòa
-                    if (CheckDicken(row, col))
-                    {
-                        PlayerDicken();
-                        return;
-                    }
-
-                    // Kiểm tra thắng
-                    if (CheckWin(row, col, 1, 0) || CheckWin(row, col, 0, 1) || CheckWin(row, col, 1, 1) || CheckWin(row, col, -1, 1))
-                    {
-                        // Phat su kien co nguoi choi thang
-                        PlayerWin();
-                        return;
-                    }
-
-                }
-            }
-        }
-
-        public bool IsInBoard(int row, int col)
-        {
-            return row >= 1 && row <= MAX_SQUARE && col >= 1 && col <= MAX_SQUARE;
-        }
-
-        public bool CheckWin(int row, int col, int increRow, int increCol)
+        public bool CheckWin(int row, int col, int increRow, int increCol, CellValues [,] BoardCell)
         {
             int CountCell = 0;
             int cRow = row;
@@ -179,23 +63,52 @@ namespace Gomoku.Model
 
             if (CountCell >= 5)
                 return true;
+
             return false;
         }
-
-        public bool CheckDicken(int row, int col)
+        
+        public bool IsInBoard(int row, int col)
         {
-            for (int i = 1; i <= MAX_SQUARE; i++)
-                for (int j = 1; j <= MAX_SQUARE; j++)
-                {
-                    if (BoardCell[i, j] == CellValues.None)
-                        return false;
-                }
+            return row >= 1 && row <= MAX_SQUARE && col >= 1 && col <= MAX_SQUARE;
+        }
 
-            return true;
+        #endregion
+
+        #region Sinh nước đi
+
+        public Node GetMoves(CellValues [,] BoardCell)
+        {
+            Node node = new Node();
+            Random rand = new Random();
+            int count = rand.Next(4); // Lấy 1 số từ 0 -> 4
+
+            EBoard.ResetBoard();
+            
+            GetGenResult(BoardCell); // Tìm nước đi
+
+            if (CanWin)
+            {
+                node = PlayerMoves[1];
+            }
+
+            else
+            {
+                EBoard.ResetBoard();
+                EvalueGomokuBoard(CellValues.Machine, BoardCell);
+                node = EBoard.GetMaxNode();
+                if (!CanLose)
+                    for (int i = 0; i < count; i++)
+                    {
+                        EBoard.Board[node.Row, node.Column] = 0;
+                        node = EBoard.GetMaxNode();
+                    }
+            }
+
+            return node;
         }
 
         // Tạo bảng lượng giá cho bàn cờ
-        private void EvalueGomokuBoard(CellValues player)
+        private void EvalueGomokuBoard(CellValues player, CellValues[,] BoardCell)
         {
             int row, col, i;
             int cPlayer, cMachine;
@@ -398,11 +311,13 @@ namespace Gomoku.Model
             #endregion
         }
 
-        #region 
+        #region Biến sử dụng cho sinh nước đi
 
         public int Depth = 0;
         static public int MaxDepth = 12;
         static public int MaxStep = 10;
+        public int[] TScore = new int[5] { 0, 1, 9, 85, 769 };
+        public int[] KScore = new int[5] { 0, 2, 28, 256, 2308 };
 
         public Node[] PlayerMoves = new Node[MaxDepth + 1];
         public Node[] PCMoves = new Node[MaxStep + 1];
@@ -412,7 +327,7 @@ namespace Gomoku.Model
         #endregion
 
         // Đệ quy sinh nước đi
-        public void GenerateMoves()
+        public void GenerateMoves(CellValues[,] BoardCell)
         {
             if (Depth >= MaxDepth)
                 return;
@@ -425,7 +340,7 @@ namespace Gomoku.Model
             int count = 0;
 
             // Tạo bảng lượng giá cho Machine
-            EvalueGomokuBoard(CellValues.Machine);
+            EvalueGomokuBoard(CellValues.Machine, BoardCell);
 
             #region Lấy tất cả các bước đi tốt nhất vào danh sách các bước đi
 
@@ -450,7 +365,7 @@ namespace Gomoku.Model
 
                 // Tìm nước đi tốt nhất
                 EBoard.ResetBoard();
-                EvalueGomokuBoard(CellValues.Player1);
+                EvalueGomokuBoard(CellValues.Player1, BoardCell);
                 for (int i = 1; i <= MaxStep; i++)
                 {
                     CompetitorNode = EBoard.GetMaxNode();
@@ -465,13 +380,13 @@ namespace Gomoku.Model
                     BoardCell[CompetitorNode.Row, CompetitorNode.Column] = CellValues.Player1;
 
                     // Đi thử
-                    if ((CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 0) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, 0, 1) ||
-                        CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 1) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, -1, 1))
+                    if ((CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 0, BoardCell) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, 0, 1, BoardCell) ||
+                        CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 1, BoardCell) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, -1, 1, BoardCell))
                         && CurrentPlayer == CellValues.Machine) // Có thể thắng
                         CanWin = true;
 
-                    if ((CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 0) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, 0, 1) ||
-                        CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 1) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, -1, 1))
+                    if ((CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 0, BoardCell) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, 0, 1, BoardCell) ||
+                        CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 1, BoardCell) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, -1, 1, BoardCell))
                         && CurrentPlayer == CellValues.Player1) // Có thể thua
                         CanLose = true;
 
@@ -487,7 +402,7 @@ namespace Gomoku.Model
                         return;
                     }
 
-                    else GenerateMoves();
+                    else GenerateMoves(BoardCell);
                     BoardCell[CompetitorNode.Row, CompetitorNode.Column] = CellValues.None;
                 }
 
@@ -497,74 +412,8 @@ namespace Gomoku.Model
             #endregion
         }
 
-        // Đệ quy sinh nước đi - V2
-        public void GenerateMoves1()
-        {
-            if (Depth >= MaxDepth)
-                return;
-
-            Depth++;
-            CanWin = false;
-
-            Node PCNode = new Node();
-            Node CompetitorNode = new Node();
-
-            // Tạo bảng lượng giá cho Machine
-            EvalueGomokuBoard(CellValues.Machine);
-
-            // Lấy bước đi tốt nhất
-            PCNode = EBoard.GetMaxNode();
-            PCMoves[1] = PCNode;
-            EBoard.Board[PCNode.Row, PCNode.Column] = 0;
-
-            // Đánh thử bước đi tốt nhất vừa tìm được
-            PlayerMoves.SetValue(PCNode, Depth);
-            BoardCell[PCNode.Row, PCNode.Column] = CellValues.Machine;
-
-            // Tìm các nước tối ưu của đối thủ
-            EBoard.ResetBoard();
-            EvalueGomokuBoard(CellValues.Player1);
-
-            // Lấy nước đi tốt nhất của đối thủ
-            CompetitorNode = EBoard.GetMaxNode();
-            CompetitorMoves[1] = CompetitorNode;
-            EBoard.Board[CompetitorNode.Row, CompetitorNode.Column] = 0;
-
-            // Đánh thử nước đi tốt nhất của đối thủ
-            BoardCell[CompetitorNode.Row, CompetitorNode.Column] = CellValues.Player1;
-
-            // Kiểm tra thắng hay thua
-            if ((CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 0) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, 0, 1) ||
-                CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 1) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, -1, 1))
-                && CurrentPlayer == CellValues.Machine) // Nếu máy có thể thắng
-                CanWin = true;
-
-            if ((CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 0) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, 0, 1) ||
-                CheckWin(CompetitorNode.Row, CompetitorNode.Column, 1, 1) || CheckWin(CompetitorNode.Row, CompetitorNode.Column, -1, 1))
-                && CurrentPlayer == CellValues.Player1) // Người chơi thắng
-                CanLose = true;
-
-
-            if (CanLose || CanWin)
-            {
-                // Bỏ nước đi vừa chơi thử                
-                BoardCell[CompetitorNode.Row, CompetitorNode.Column] = CellValues.None;
-                BoardCell[PCNode.Row, PCNode.Column] = CellValues.None;
-                if (CanWin)
-                    CanLose = false;
-
-                return;
-            }
-            else GenerateMoves1(); // Tìm nước khác
-
-            // Bỏ nước đi vừa chơi thử                
-            BoardCell[CompetitorNode.Row, CompetitorNode.Column] = CellValues.None;
-            BoardCell[PCNode.Row, PCNode.Column] = CellValues.None;
-
-        }
-
         // Tìm đường đi
-        public void GetGenResult()
+        public void GetGenResult(CellValues [,] BoardCell)
         {
             CanWin = false;
             CanLose = false;
@@ -578,8 +427,10 @@ namespace Gomoku.Model
                 PCMoves[i] = new Node();
 
             Depth = 0;
-            GenerateMoves();
+            GenerateMoves(BoardCell);
         }
+
+        #endregion
 
     }
 }

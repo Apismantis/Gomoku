@@ -4,16 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gomoku.Model
+namespace Gomuku.Model
 {
-    class Player
+    public class Player
     {
-        string _name;
+        private int _Id;
 
-        string Name
+        public int ID
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return _Id; }
+            set { _Id = value; }
+        }
+
+        private string _Name;
+
+        public string Name
+        {
+            get { return _Name; }
+            set { _Name = value; }
+        }
+
+        public Player(string Name)
+        {
+            _Id = 1;
+            _Name = Name;
         }
     }
 }

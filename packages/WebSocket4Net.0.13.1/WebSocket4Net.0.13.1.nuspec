@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>WebSocket4Net</id>
+    <version>0.13.1</version>
+    <authors>Kerry Jiang</authors>
+    <owners>Kerry Jiang</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>http://websocket4net.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>WebSocket4Net is a .NET websocket client implemtation. It originates from SuperWebSocket WebSocket Client. For better developing of the websocket client, it was separated from SuperWebSocket and was renamed to WebSocket4Net.</description>
+    <releaseNotes>* added iOS Unified API support; 
+* improved the code about certificate validating; 
+* fixed unhandled exceptions which happens on setting socket option; 
+* added close reason support;</releaseNotes>
+    <tags>WebSocket WebSocket4Net SuperWebSocket</tags>
+  </metadata>
+</package>

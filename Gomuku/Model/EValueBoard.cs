@@ -4,7 +4,13 @@ using System.Text;
 
 namespace Gomoku.Model
 {
-    class EValueBoard
+    public struct Node
+    {
+        public int Row;
+        public int Column;
+    }
+
+    public class EValueBoard
     {        
         public int MAX_SQUARE;
         public int[,] Board;

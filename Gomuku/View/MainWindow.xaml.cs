@@ -21,6 +21,8 @@ namespace Gomoku.View
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
     public partial class MainWindow : Window
     {
         int MAX_SQUARE;
@@ -45,21 +47,29 @@ namespace Gomoku.View
 
             rdbPlayerVsPlayer.IsChecked = true;
 
-            BoardChess.EndGame += EndGameEvent;
+            myMessage.Add(new Message("Server", "Hello! Welcome to Gomoku! Please wait another player."));
 
-            BoardChess.DickenGame += DickenGameEvent;
-
-            BoardChess.GetBoardChess().PaintCellEvent += PaintCellBoardChess;
-
-            BoardChess.GetPCBoardChess().PaintCellEvent += PaintCellBoardChess;
-
-            myMessage.Add(new Message()
-            {
-                UserName = "Server",
-                Time = DateTime.Now.ToLongTimeString(),
-                MessageText = "Hello! Welcome to Gomoku! Please wait another player."
-            });
             ChatBox.ItemsSource = myMessage;
+
+            #region Khai báo Delegate
+
+            BoardChess.BoardChessOffline.PlayerWin += PlayerWinEvent;
+
+            BoardChess.BoardChessOffline.PlayerDicken += PlayerDickenEvent;
+
+            BoardChess.BoardChessOffline.PaintCellEvent += PaintCellBoardChessOffline;
+
+            BoardChess.BoardChessOffline.HighlightCellWinnerEvent += HighlightCellWinnerEvent;
+
+            BoardChess.Socket.PaintCellEvent += PaintCellBoardChessOnline;
+
+            BoardChess.Socket.ShowMessageEvent += ShowMessageEvent;
+
+            BoardChess.Socket.EndGameEvent += EndGameOnlineEvent;
+
+            BoardChess.Socket.HighlightCellWinnerEvent += HighlightCellWinnerEvent;
+
+            #endregion
         }
 
         public void DrawBoardChess()
@@ -94,15 +104,11 @@ namespace Gomoku.View
             }
         }
 
-        public void PaintCellBoardChess(int row, int col)
+        public void PaintCellBoardChessOffline(int row, int col)
         {
             CellValues CurrentPlayer = CellValues.None;
 
-            if (rdbPlayerVsPlayer.IsChecked == true)
-                CurrentPlayer = BoardChess.GetBoardChess().GetCurrentPlayer();
-
-            else if (rdbPlayerVsMachine.IsChecked == true)
-                CurrentPlayer = BoardChess.GetPCBoardChess().GetCurrentPlayer();
+            CurrentPlayer = BoardChess.BoardChessOffline.GetCurrentPlayer();
 
             if (CurrentPlayer == CellValues.Player1)
             {
@@ -117,26 +123,76 @@ namespace Gomoku.View
             }
         }
 
-        public void EndGameEvent()
+        public void HighlightCellWinnerEvent(List<Node> HighlightCellList)
         {
-            CellValues CurrentPlayer = CellValues.None;
-
-            if (rdbPlayerVsPlayer.IsChecked == true)
-                CurrentPlayer = BoardChess.GetBoardChess().GetCurrentPlayer();
-
-            else if (rdbPlayerVsMachine.IsChecked == true)
-                CurrentPlayer = BoardChess.GetPCBoardChess().GetCurrentPlayer();
-
-            MessageBox.Show(CurrentPlayer + " win!!", "End Game");
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                for (int i = 0; i < HighlightCellList.Count(); i++)
+                {
+                    LButton[HighlightCellList[i].Row, HighlightCellList[i].Column].Background = Brushes.Orange;
+                }
+            }));
         }
 
-        public void DickenGameEvent()
+        public void PaintCellBoardChessOnline(int row, int col, int Id)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                //Console.WriteLine(BoardChess.Socket.player.Name + " " + BoardChess.Socket.player.ID + " -> ID = " + Id);
+
+                if (Id == BoardChess.Socket.player.ID)
+                {
+                    LButton[row, col].Content = "O";
+                    LButton[row, col].Foreground = Brushes.Green;                    
+                }
+                else
+                {
+                    LButton[row, col].Content = "X";
+                    LButton[row, col].Foreground = Brushes.Red;
+                }
+            }));
+        }
+
+        public void ShowMessageEvent(Message message)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                myMessage.Add(message);
+            }));
+        }
+
+        public void EndGameOnlineEvent(string message)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                MessageBox.Show(message);
+            }));
+        }
+
+        public void PlayerWinEvent(CellValues Player)
+        {
+            MessageBox.Show(Player + " win!!", "End Game");
+            EnableUnenableRDB(true);
+        }
+
+        public void PlayerDickenEvent()
         {
             MessageBox.Show("Dicken!...", "End Game");
+            EnableUnenableRDB(true);
+        }
+
+        public void EnableUnenableRDB(bool status)
+        {
+            rdbPlayerVsMachine.IsEnabled = status;
+            rdbPlayerVsPlayer.IsEnabled = status;
+            rdbPlayOnline.IsEnabled = status;
+            rdbAutoPlayOnline.IsChecked = false;
         }
 
         private void btnCell_Click(object sender, RoutedEventArgs e)
         {
+            EnableUnenableRDB(false);
+
             string btnName = ((Button)sender).Name;
 
             for (int i = 0; i < MAX_SQUARE; i++)
@@ -155,19 +211,84 @@ namespace Gomoku.View
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
             if (tbMessage.Text.CompareTo("") != 0)
-                myMessage.Add(new Message() { UserName = tbPlayerName.Text, Time = DateTime.Now.ToLongTimeString(), MessageText = tbMessage.Text });
+            {
+                BoardChess.Socket.SendMessage(tbMessage.Text);
+            }
         }
 
         private void rdbPlayerVsPlayer_Checked(object sender, RoutedEventArgs e)
         {
             Mode = 1;
+            BoardChess.Socket.AutoMode = false;
+
             rdbPlayerVsMachine.IsChecked = false;
+            rdbPlayOnline.IsChecked = false;
+            rdbAutoPlayOnline.IsChecked = false;
+            btnStartGame.Visibility = Visibility.Hidden;
         }
 
         private void rdbPlayerVsMachine_Checked(object sender, RoutedEventArgs e)
         {
             Mode = 2;
+            BoardChess.Socket.AutoMode = false;
+
             rdbPlayerVsPlayer.IsChecked = false;
+            rdbPlayOnline.IsChecked = false;
+            rdbAutoPlayOnline.IsChecked = false;
+            btnStartGame.Visibility = Visibility.Hidden;
         }
+
+        private void rdbPlayOnline_Checked(object sender, RoutedEventArgs e)
+        {
+            Mode = 3;
+            BoardChess.Socket.AutoMode = false;
+
+            rdbPlayerVsPlayer.IsChecked = false;
+            rdbPlayerVsMachine.IsChecked = false;
+            rdbAutoPlayOnline.IsChecked = false;
+            btnStartGame.Visibility = Visibility.Hidden;
+        }
+
+        private void rdbAutoPlayOnline_Checked(object sender, RoutedEventArgs e)
+        {
+            Mode = 4;
+            BoardChess.Socket.AutoMode = true;
+
+            rdbPlayerVsPlayer.IsChecked = false;
+            rdbPlayerVsMachine.IsChecked = false;
+            rdbPlayOnline.IsChecked = false;
+            btnStartGame.Visibility = Visibility.Visible;
+        }
+
+        private void btnNewGame_Click(object sender, RoutedEventArgs e)
+        {
+            EnableUnenableRDB(true);
+
+            BoardChess.ResetBoardChess();
+
+            for (int i = 0; i < MAX_SQUARE; i++)
+                for (int j = 0; j < MAX_SQUARE; j++)
+                {
+                    LButton[i, j].Content = "";
+
+                    if ((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0))
+                        LButton[i, j].Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E0E0E0"));
+                    else
+                        LButton[i, j].Background = Brushes.White;
+                }
+
+            BoardChess.Socket.NewGame();
+        }
+
+        private void btnChange_Click(object sender, RoutedEventArgs e)
+        {
+            BoardChess.Socket.ChangePlayerName(tbPlayerName.Text);
+        }
+
+        private void btnStartGame_Click(object sender, RoutedEventArgs e)
+        {
+            BoardChess.Socket.StartGame();
+        }
+        
     }
 }
