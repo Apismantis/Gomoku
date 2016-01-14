@@ -110,7 +110,7 @@
             </TextBox.Foreground>
         </TextBox>
 
-        <Button x:Name="btnChange" Style="{StaticResource ButtonStyle}" Content="Change!" Margin="0,207,33.6,0" TabIndex="1" Background="#FFE5E5E5" BorderBrush="#FFACA0A0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="63" Click="btnChange_Click" Cursor="Hand">
+        <Button x:Name="btnChange" Style="{StaticResource ButtonStyle}" Content="Change!" Margin="0,207,33.6,0" TabIndex="1" Background="#FFE5E5E5" BorderBrush="#FFACA0A0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="63" Click="btnChange_Click" Cursor="Hand" MouseEnter="btnChange_MouseEnter" MouseLeave="btnChange_MouseLeave">
             <Button.Foreground>
                 <SolidColorBrush Color="Black" Opacity="0.7"/>
             </Button.Foreground>
@@ -118,7 +118,7 @@
 
         <Label Style="{StaticResource LabelChatBoxNameStyle}" Height="35" Margin="0,245,25.6,0" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Width="293" Foreground="#FFD65555"/>
 
-        <TextBox x:Name="tbMessage" Style="{StaticResource TextBoxStyle}" Margin="0,619,117.6,0" Text="Type your message here..." MaxLines="1" Padding="5,1,1,0" Grid.IsSharedSizeScope="True" TabIndex="1" HorizontalAlignment="Right" Width="187" Height="26" VerticalAlignment="Top" PreviewMouseDown="tbMessage_PreviewMouseDown" >
+        <TextBox x:Name="tbMessage" Style="{StaticResource TextBoxStyle}" Margin="0,619,117.6,0" Text="Type your message here..." MaxLines="1" Padding="5,1,1,0" Grid.IsSharedSizeScope="True" TabIndex="1" HorizontalAlignment="Right" Width="187" Height="26" VerticalAlignment="Top" PreviewMouseDown="tbMessage_PreviewMouseDown" KeyUp="tbMessage_KeyUp" >
             <TextBox.BorderBrush>
                 <SolidColorBrush Color="#FFABADB3" Opacity="0.87"/>
             </TextBox.BorderBrush>
@@ -127,7 +127,7 @@
             </TextBox.Foreground>
         </TextBox>
 
-        <Button x:Name="btnSend" Style="{StaticResource ButtonTwoCornerStyle}" Content="Send" Margin="0,619,57.6,0" TabIndex="1" Background="#FDD835" HorizontalAlignment="Right" Width="63" FontFamily="Segoe UI Semibold" Height="26" VerticalAlignment="Top" Click="btnSend_Click" Cursor="Hand">
+        <Button x:Name="btnSend" Style="{StaticResource ButtonTwoCornerStyle}" Content="Send" Margin="0,619,57.6,0" TabIndex="1" Background="#FDD835" HorizontalAlignment="Right" Width="63" FontFamily="Segoe UI Semibold" Height="26" VerticalAlignment="Top" Click="btnSend_Click" Cursor="Hand" MouseEnter="btnSend_MouseEnter" MouseLeave="btnSend_MouseLeave">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FFACA0A0" Opacity="0.87"/>
             </Button.BorderBrush>
@@ -140,7 +140,7 @@
             <Grid>
                 <Border BorderBrush="#039BE5" BorderThickness="1" HorizontalAlignment="Left" Margin="0,0,0,0" Height="340" VerticalAlignment="Top" Width="280"/>
 
-                <ScrollViewer Height="340" Opacity="0.54" >
+                <ScrollViewer x:Name="ChatBoxScrollView" Height="340" Opacity="0.54" >
                     <ItemsControl x:Name="ChatBox" ItemTemplate="{StaticResource MessageTemplate}" ScrollViewer.CanContentScroll="True"/>
                 </ScrollViewer>
             </Grid>
@@ -158,9 +158,9 @@
 
         <RadioButton x:Name="rdbPlayerVsMachine" Content="Player vs Machine" HorizontalAlignment="Left" Margin="159,157,0,0" VerticalAlignment="Top" Checked="rdbPlayerVsMachine_Checked"/>
 
-        <RadioButton x:Name="rdbPlayOnline" Content="Play Online" HorizontalAlignment="Left" Margin="293,157,0,0" VerticalAlignment="Top" Checked="rdbPlayOnline_Checked"/>
+        <RadioButton x:Name="rdbPlayOnline" Content="Player Online" HorizontalAlignment="Left" Margin="292,157,0,0" VerticalAlignment="Top" Checked="rdbPlayOnline_Checked"/>
 
-        <Button x:Name="btnNewGame" Style="{StaticResource ButtonStyle}" Content="New Game" Margin="0,154,34.6,0" TabIndex="1" Background="#FF039BE5" BorderBrush="{x:Null}" Height="26" VerticalAlignment="Top" Click="btnNewGame_Click" FontWeight="Bold" HorizontalAlignment="Right" Width="129" Cursor="Hand">
+        <Button x:Name="btnNewGame" Style="{StaticResource ButtonStyle}" Content="New Game" Margin="0,154,33.4,0" TabIndex="1" Background="#FF039BE5" BorderBrush="{x:Null}" Height="26" VerticalAlignment="Top" Click="btnNewGame_Click" FontWeight="Bold" HorizontalAlignment="Right" Width="130" Cursor="Hand" MouseEnter="btnNewGame_MouseEnter" MouseLeave="btnNewGame_MouseLeave">
             <Button.Foreground>
                 <SolidColorBrush Color="White" Opacity="0.7"/>
             </Button.Foreground>
@@ -168,7 +168,7 @@
 
         <RadioButton x:Name="rdbAutoPlayOnline" Content="Machine Play Online" HorizontalAlignment="Left" Margin="400,157,0,0" VerticalAlignment="Top" Checked="rdbAutoPlayOnline_Checked"/>
 
-        <Button x:Name="btnStartGame" Style="{StaticResource ButtonStyle}" Content="Start Game" Margin="0,154,180.6,0" TabIndex="1" Background="#29BF12" BorderBrush="{x:Null}" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="133" Visibility="Visible" Click="btnStartGame_Click" FontWeight="Bold" Cursor="Hand">
+        <Button x:Name="btnStartGame" Style="{StaticResource ButtonStyle}" Content="Start Game" Margin="0,154,180.6,0" TabIndex="1" Background="#29BF12" BorderBrush="{x:Null}" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="133" Visibility="Visible" Click="btnStartGame_Click" FontWeight="Bold" Cursor="Hand" MouseEnter="btnStartGame_MouseEnter" MouseLeave="btnStartGame_MouseLeave">
             <Button.Foreground>
                 <SolidColorBrush Color="White" Opacity="0.7"/>
             </Button.Foreground>

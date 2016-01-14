@@ -72,10 +72,21 @@ namespace Gomuku.Model
             return row >= 1 && row <= MAX_SQUARE && col >= 1 && col <= MAX_SQUARE;
         }
 
+        public bool IsValidStep(int row, int col, CellValues[,] BoardCell)
+        {
+            if (!IsInBoard(row, col) || BoardCell[row, col] != CellValues.None)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         #endregion
 
         #region Sinh nước đi
-
+        
+        // Sinh nước đi
         public Node GetMoves(CellValues [,] BoardCell)
         {
             Node node = new Node();
@@ -84,7 +95,7 @@ namespace Gomuku.Model
 
             EBoard.ResetBoard();
             
-            GetGenResult(BoardCell); // Tìm nước đi
+            GetGenResult(BoardCell); // Tìm nước đid
 
             if (CanWin)
             {
@@ -103,7 +114,33 @@ namespace Gomuku.Model
                         node = EBoard.GetMaxNode();
                     }
             }
-            Console.WriteLine("New pos: " + node.Row + " " + node.Column);
+                        
+            // Kiem tra nuoc di co hop le khong
+            //if (!IsValidStep(node.Row - 1, node.Column - 1, BoardCell))
+            //{
+            //    Console.WriteLine("Invalid Step: " + node.Row + " " + node.Column);
+
+            //    List<Node> StepList = new List<Node>();
+            //    for (int i = 0; i < MAX_SQUARE; i++)
+            //    {
+            //        for (int j = 0; j < MAX_SQUARE; j++)
+            //        {
+            //            if (BoardCell[i, j] == CellValues.None)
+            //            {
+            //                Node Step = new Node();
+            //                Step.Row = i;
+            //                Step.Column = j;
+            //                StepList.Add(Step);
+            //            }                        
+            //        }
+            //    }
+
+            //    if (StepList.Count > 0)
+            //    {
+            //        int index = new Random().Next(StepList.Count());
+            //        return StepList[index];
+            //    }
+            //}
 
             return node;
         }
@@ -328,7 +365,7 @@ namespace Gomuku.Model
         #endregion
 
         // Đệ quy sinh nước đi
-        public void GenerateMoves(CellValues[,] BoardCell)
+        public void GenerateMoves(ref CellValues[,] BoardCell)
         {
             if (Depth >= MaxDepth)
                 return;
@@ -403,7 +440,7 @@ namespace Gomuku.Model
                         return;
                     }
 
-                    else GenerateMoves(BoardCell);
+                    else GenerateMoves(ref BoardCell);
                     BoardCell[CompetitorNode.Row, CompetitorNode.Column] = CellValues.None;
                 }
 
@@ -428,7 +465,7 @@ namespace Gomuku.Model
                 PCMoves[i] = new Node();
 
             Depth = 0;
-            GenerateMoves(BoardCell);
+            GenerateMoves(ref BoardCell);
         }
 
         #endregion

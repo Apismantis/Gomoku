@@ -1,0 +1,73 @@
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\New\1312666\Gomuku\obj\Debug\View\MainWindow.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\New\1312666\Gomuku\obj\Debug\App.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\New\1312666\Gomuku\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\New\1312666\Gomuku\obj\Debug\Gomuku_MarkupCompile.cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\New\1312666\Gomuku\obj\Debug\Gomuku_MarkupCompile.lref
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\New\1312666\Gomuku\obj\Debug\Gomuku.csprojResolveAssemblyReference.cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\New\1312666\Gomuku\bin\Debug\Gomuku.View.exe.config
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\New\1312666\Gomuku\bin\Debug\Gomuku.exe.config
+D:\Downloads\1312666\Gomuku\bin\Debug\Gomuku.exe.config
+D:\Downloads\1312666\Gomuku\obj\Debug\Gomuku.csprojResolveAssemblyReference.cache
+D:\Downloads\1312666\Gomuku\obj\Debug\View\MainWindow.g.cs
+D:\Downloads\1312666\Gomuku\obj\Debug\App.g.cs
+D:\Downloads\1312666\Gomuku\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Downloads\1312666\Gomuku\obj\Debug\Gomuku_MarkupCompile.cache
+D:\Downloads\1312666\Gomuku\obj\Debug\Gomuku_MarkupCompile.lref
+D:\Downloads\1312666\Gomuku\bin\Debug\Gomuku.exe
+D:\Downloads\1312666\Gomuku\bin\Debug\Gomuku.pdb
+D:\Downloads\1312666\Gomuku\obj\Debug\View\MainWindow.baml
+D:\Downloads\1312666\Gomuku\obj\Debug\Gomuku.g.resources
+D:\Downloads\1312666\Gomuku\obj\Debug\Gomuku.Properties.Resources.resources
+D:\Downloads\1312666\Gomuku\obj\Debug\Gomuku.csproj.GenerateResource.Cache
+D:\Downloads\1312666\Gomuku\obj\Debug\Gomuku.exe
+D:\Downloads\1312666\Gomuku\obj\Debug\Gomuku.pdb
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\bin\Debug\Gomuku.exe.config
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\Gomuku.exe
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\Gomuku.pdb
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\bin\Debug\Gomuku.exe
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\bin\Debug\Gomuku.pdb
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\Gomuku.csprojResolveAssemblyReference.cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\View\MainWindow.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\App.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\Gomuku_MarkupCompile.cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\Gomuku_MarkupCompile.lref
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\View\MainWindow.baml
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\Gomuku.g.resources
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\Gomuku.Properties.Resources.resources
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666_1\1312666\Gomuku\obj\Debug\Gomuku.csproj.GenerateResource.Cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\bin\Debug\Gomuku.exe.config
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\bin\Debug\Gomuku.exe
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\bin\Debug\Gomuku.pdb
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\View\MainWindow.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\App.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\Gomuku_MarkupCompile.cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\Gomuku_MarkupCompile.lref
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\View\MainWindow.baml
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\Gomuku.g.resources
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\Gomuku.Properties.Resources.resources
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\Gomuku.csproj.GenerateResource.Cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\Gomuku.exe
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\Gomuku.pdb
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666\Gomuku\obj\Debug\Gomuku.csprojResolveAssemblyReference.cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\Gomuku.exe
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\bin\Debug\Gomuku.exe.config
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\bin\Debug\Gomuku.exe
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\bin\Debug\Gomuku.pdb
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\View\MainWindow.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\App.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\Gomuku_MarkupCompile.cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\Gomuku_MarkupCompile.lref
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\View\MainWindow.baml
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\Gomuku.g.resources
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\Gomuku.Properties.Resources.resources
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\Gomuku.csproj.GenerateResource.Cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\Gomuku.pdb
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\obj\Debug\Gomuku.csprojResolveAssemblyReference.cache
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\bin\Debug\EngineIoClientDotNet.dll
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\bin\Debug\Newtonsoft.Json.dll
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\bin\Debug\SocketIoClientDotNet.dll
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\bin\Debug\WebSocket4Net.dll
+E:\STUDY\KỲ 5\LẬP TRÌNH WINDOWS\ĐỒ ÁN\Gomoku\1312666 - Copy\Gomuku\bin\Debug\Newtonsoft.Json.xml

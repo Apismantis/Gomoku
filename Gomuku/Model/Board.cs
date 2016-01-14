@@ -312,5 +312,4 @@ namespace Gomoku.Model
 
         #endregion
     }
-
 }

@@ -21,6 +21,14 @@ namespace Gomoku.ViewModel
             Socket = new SocketIOClient();
         }
 
+        public void RecreateSocketClient()
+        {
+            if (Socket != null)
+                Socket = null;
+
+            Socket = new SocketIOClient();
+        }
+
         public void ResetBoardChess()
         {
             BoardChessOffline.ResetBoard();

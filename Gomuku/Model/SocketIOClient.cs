@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Quobject.SocketIoClientDotNet.Client;
 using Gomoku.Model;
+using System.ComponentModel;
 
 namespace Gomuku.Model
 {
@@ -21,6 +22,7 @@ namespace Gomuku.Model
         public bool AutoMode;
         AutoMovesBoard AMB;
         bool IsStart, IsConnected, IsNotiError;
+        private BackgroundWorker bw;
 
         #endregion
 
@@ -60,6 +62,14 @@ namespace Gomuku.Model
             socket = IO.Socket(Gomuku.Properties.Settings.Default.IPServerString);
 
             HighlitghtCell = new List<Node>();
+
+            bw = new BackgroundWorker();
+
+            bw.WorkerSupportsCancellation = true;
+
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
             #region EVENT
 
@@ -106,7 +116,7 @@ namespace Gomuku.Model
                 catch (Exception) { }
 
                 // Gửi tên người chơi và yêu cầu kết nối tới người chơi còn lại
-                if (message == "Welcome!")
+                if (message.Equals("Welcome!"))
                 {
                     socket.Emit("MyNameIs", player.Name);
                     socket.Emit("ConnectToOtherPlayer");
@@ -187,8 +197,7 @@ namespace Gomuku.Model
                     {
                         BoardCell[row + 1, col + 1] = CellValues.Player1;
                         AMB.CurrentPlayer = CellValues.Player1;
-                        Node moves = AMB.GetMoves(BoardCell);
-                        PlayAt(moves.Row - 1, moves.Column - 1);
+                        bw.RunWorkerAsync();
                     }
                 }               
 
@@ -197,24 +206,41 @@ namespace Gomuku.Model
             #endregion
         }
 
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Node node = new Node();
+            node = AMB.GetMoves(BoardCell);
+            e.Result = node;
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Node moves = (Node)e.Result;
+            PlayAt(moves.Row - 1, moves.Column - 1);
+        }
+
         public bool IsConnectingServer()
         {            
             return IsConnected;
         }
 
-        public void StartGame()
+        public bool StartGame()
         {
             if (AutoMode && player.ID == 0 && !IsStart)
             {
-                PlayAt(6, 6);
+                PlayAt(MAX_SQUARE / 2, MAX_SQUARE / 2);
                 IsStart = true;
+
+                return true;
             }
+
+            return false;
         }
 
-        public void NewGame()
+        public void CloseConnection()
         {
-            ResetBoardCell();
-            IsConnectingServer();
+            socket.Disconnect();
+            socket.Close();
         }
 
         public void ResetBoardCell()
